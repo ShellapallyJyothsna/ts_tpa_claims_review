@@ -126,6 +126,44 @@ st.set_page_config(layout="wide", page_title="TPA Review Portal", page_icon="ðŸ›
 
 # ---------------- DATA ----------------
 
+# records = [
+#     {
+#         "id": "TPA-001",
+#         "claim": "CLM-10021",
+#         "insured": "ABC Logistics",
+#         "lossDate": "2024-01-12",
+#         "incurred": 125000,
+#         "status": "Yet to Review",
+#         "fields": [
+#             {"key": "Claim Number", "value": "CLM-10021", "confidence": 98},
+#             {"key": "Insured Name", "value": "ABC Logistics", "confidence": 95},
+#             {"key": "Loss Date", "value": "2024-01-12", "confidence": 92},
+#             {"key": "Paid Amount", "value": "$85,000", "confidence": 88},
+#             {"key": "Reserve Amount", "value": "$40,000", "confidence": 85},
+#             {"key": "Incurred", "value": "$125,000", "confidence": 90},
+#             {"key": "Claim Status", "value": "Open", "confidence": 93},
+#             {"key": "LOB", "value": "Auto Liability", "confidence": 87},
+#         ],
+#     },
+#     {
+#         "id": "TPA-002",
+#         "claim": "CLM-10045",
+#         "insured": "Delta Transport",
+#         "lossDate": "2024-02-03",
+#         "incurred": 78000,
+#         "status": "Review in Progress",
+#         "fields": [
+#             {"key": "Claim Number", "value": "CLM-10045", "confidence": 97},
+#             {"key": "Insured Name", "value": "Delta Transport", "confidence": 94},
+#             {"key": "Loss Date", "value": "2024-02-03", "confidence": 91},
+#             {"key": "Paid Amount", "value": "$50,000", "confidence": 84},
+#             {"key": "Reserve Amount", "value": "$28,000", "confidence": 82},
+#             {"key": "Incurred", "value": "$78,000", "confidence": 88},
+#             {"key": "Claim Status", "value": "Open", "confidence": 92},
+#             {"key": "LOB", "value": "Workers Comp", "confidence": 86},
+#         ],
+#     },
+# ]
 records = [
     {
         "id": "TPA-001",
@@ -145,6 +183,7 @@ records = [
             {"key": "LOB", "value": "Auto Liability", "confidence": 87},
         ],
     },
+
     {
         "id": "TPA-002",
         "claim": "CLM-10045",
@@ -163,8 +202,26 @@ records = [
             {"key": "LOB", "value": "Workers Comp", "confidence": 86},
         ],
     },
-]
 
+    {
+        "id": "TPA-003",
+        "claim": "CLM-10088",
+        "insured": "Omega Freight",
+        "lossDate": "2024-02-18",
+        "incurred": 56000,
+        "status": "Submitted",
+        "fields": [
+            {"key": "Claim Number", "value": "CLM-10088", "confidence": 96},
+            {"key": "Insured Name", "value": "Omega Freight", "confidence": 93},
+            {"key": "Loss Date", "value": "2024-02-18", "confidence": 90},
+            {"key": "Paid Amount", "value": "$32,000", "confidence": 86},
+            {"key": "Reserve Amount", "value": "$24,000", "confidence": 84},
+            {"key": "Incurred", "value": "$56,000", "confidence": 89},
+            {"key": "Claim Status", "value": "Closed", "confidence": 94},
+            {"key": "LOB", "value": "General Liability", "confidence": 88},
+        ],
+    },
+]
 if "selected_id" not in st.session_state:
     st.session_state.selected_id = "TPA-001"
 
@@ -393,7 +450,20 @@ with right:
     """,unsafe_allow_html=True)
 
     checked=st.session_state.checked_fields[sel["id"]]
-
+    st.markdown("""
+    <div style="
+    display:flex;
+    justify-content:space-between;
+    padding:.4rem .4rem .8rem .4rem;
+    color:#cbd5f5;
+    font-size:.78rem;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;">
+        <div>Field</div>
+        <div style="margin-right:2.2rem;">Field Value Confidence</div>
+    </div>
+    """, unsafe_allow_html=True)
     for i,f in enumerate(sel["fields"]):
         col1,col2=st.columns([1,.08])
         with col1:
